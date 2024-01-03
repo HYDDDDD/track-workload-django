@@ -27,6 +27,7 @@ class UserAccountManager(BaseUserManager):
             **kwargs
         )
         user.is_superuser = True
+        user.is_staff = True
         user.save(using=self._db)
         return user
 
@@ -59,9 +60,9 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=10)
     role = models.CharField(max_length=5, choices=ROLE)
     branch = models.CharField(max_length=40, choices=BRANCH)
-    totalHour = models.IntegerField()
+    totalHour = models.IntegerField(null=True)
 
-    is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
 
     objects = UserAccountManager()
 

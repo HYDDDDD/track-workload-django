@@ -39,12 +39,6 @@ DEBUG = getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS',
                        '127.0.0.1,localhost').split(',')
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
-
-CORS_ALLOW_CREDENTIALS = True
-
 CORS_ALLOW_HEADERS = [
     'access-control-allow-origin',
     'authorization',
@@ -65,6 +59,7 @@ INSTALLED_APPS = [
     'djoser',
     'storages',
     'users',
+    'activity'
 ]
 
 MIDDLEWARE = [
@@ -179,12 +174,24 @@ REST_FRAMEWORK = {
     ]
 }
 
+# DJOSER = {
+#     # 'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{token}',
+#     # 'ACTIVATION_URL': 'activation/{token}',
+#     # 'USER_CREATE_PASSWORD_RETYPE': True,
+#     # 'PASSWORD_RESET_CONFIRM_RETYPE': True,
+#     # 'TOKEN_MODEL': None,
+#     'SERIALIZERS': {
+#         'user_create': 'users.serializers.CustomUserCreateSerializer',
+#         'user': 'users.serializers.CustomUserSerializer',
+#     }
+# }
+
 DJOSER = {
-    # 'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{token}',
-    # 'ACTIVATION_URL': 'activation/{token}',
-    # 'USER_CREATE_PASSWORD_RETYPE': True,
-    # 'PASSWORD_RESET_CONFIRM_RETYPE': True,
-    # 'TOKEN_MODEL': None,
+    'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{token}',
+    'ACTIVATION_URL': 'activation/{token}',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_RETYPE': True,
+    'TOKEN_MODEL': None,
     'SERIALIZERS': {
         'user_create': 'users.serializers.CustomUserCreateSerializer',
         'user': 'users.serializers.CustomUserSerializer',
@@ -197,6 +204,13 @@ AUTH_COOKIE_SECURE = getenv('AUTH_COOKIE_SECURE', 'True') == 'True'
 AUTH_COOKIE_HTTP_ONLY = True
 AUTH_COOKIE_PATH = '/'
 AUTH_COOKIE_SAMESITE = 'None'
+
+CORS_ALLOWED_ORIGINS = getenv(
+    'CORS_ALLOWED_ORIGINS',
+    'http://localhost:3000,http://127.0.0.1:3000'
+).split(',')
+
+CORS_ALLOW_CREDENTIALS = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

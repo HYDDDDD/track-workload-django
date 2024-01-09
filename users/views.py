@@ -8,6 +8,9 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView
 )
+from rest_framework import generics
+from .models import Activity
+from .serializers import ActivitySerializer
 
 
 class CustomProviderAuthView(ProviderAuthView):
@@ -112,3 +115,8 @@ class LogoutView(APIView):
         response.delete_cookie('refresh')
 
         return response
+
+
+class ActivityList(generics.ListAPIView):
+    queryset = Activity.objects.all()
+    serializer_class = ActivitySerializer

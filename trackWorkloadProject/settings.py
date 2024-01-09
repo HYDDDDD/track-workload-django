@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'djoser',
     'storages',
     'users',
-    'activity'
 ]
 
 MIDDLEWARE = [

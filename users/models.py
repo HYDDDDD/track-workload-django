@@ -2,6 +2,46 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
 
+class Activity(models.Model):
+    ROLE = {
+        "ADMIN": "admin",
+        "USER": "users"
+    }
+
+    BRANCH = {
+        "DB": "สาขาวิชาธุรกิจดิจิทัล",
+        "IT": "สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "GIS": "สาขาวิชาภูมิสารสนเทศศาสตร์",
+        "CS": "สาขาวิชาวิทยาการคอมพิวเตอร์",
+        "DSA": "สาขาวิชาวิทยาการข้อมูลและการประยุกต์",
+        "CPE": "สาขาวิชาวิศวกรรมคอมพิวเตอร์",
+        "SE": "สาขาวิชาวิศวกรรมซอฟต์แวร์",
+        "CG": "สาขาวิชาคอมพิวเตอร์กราฟิกและมัลติมีเดีย",
+        "OFFICE": "สำนักงานคณะ"
+    }
+
+    CATEGORY = {
+        "H": "health",
+        "C": "Culture"
+    }
+
+    STATUS = {
+        "P": "pass",
+        "N": "no pass",
+        "D": "doing"
+    }
+
+    category = models.CharField(max_length=1, choices=CATEGORY)
+    updateDate = models.DateField()
+    hour = models.IntegerField()
+    status = models.CharField(max_length=1, choices=STATUS)
+    activityUser = models.CharField(max_length=100)
+
+    # auto_now_add : Automatically set the field to now when the object is first created
+    def __str__(self):
+        return self.category
+
+
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, password=None, **kwargs):
         if not email:
@@ -61,6 +101,9 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     role = models.CharField(max_length=5, choices=ROLE)
     branch = models.CharField(max_length=40, choices=BRANCH)
     totalHour = models.IntegerField(null=True)
+    # activites = models.ManyToManyField(Activity)
+    activites = models.ForeignKey(
+        Activity, on_delete=models.CASCADE, null=True)
 
     is_staff = models.BooleanField(default=False)
 

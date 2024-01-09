@@ -117,6 +117,6 @@ class LogoutView(APIView):
         return response
 
 
-class ActivityList(generics.ListAPIView):
+class ActivityPostList(generics.CreateAPIView):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer

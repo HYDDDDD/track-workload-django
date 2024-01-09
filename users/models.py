@@ -101,9 +101,6 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     role = models.CharField(max_length=5, choices=ROLE)
     branch = models.CharField(max_length=40, choices=BRANCH)
     totalHour = models.IntegerField(null=True)
-    # activites = models.ManyToManyField(Activity)
-    activites = models.ForeignKey(
-        Activity, on_delete=models.CASCADE, null=True)
 
     is_staff = models.BooleanField(default=False)
 

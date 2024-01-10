@@ -35,6 +35,7 @@ class Activity(models.Model):
     updateDate = models.DateField()
     hour = models.IntegerField()
     status = models.CharField(max_length=1, choices=STATUS)
+    image = models.ImageField(upload_to="activites")
     activityUser = models.CharField(max_length=100)
 
     # auto_now_add : Automatically set the field to now when the object is first created

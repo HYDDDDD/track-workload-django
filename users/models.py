@@ -4,8 +4,9 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 
 class Activity(models.Model):
     ROLE = {
-        "ADMIN": "admin",
-        "USER": "users"
+        "Admin": "admin",
+        "Personnel": "users",
+        "Officer":"officer"
     }
 
     BRANCH = {
@@ -75,8 +76,9 @@ class UserAccountManager(BaseUserManager):
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     ROLE = {
-        "ADMIN": "admin",
-        "USER": "users"
+        "Admin": "admin",
+        "Personnel": "users",
+        "Officer":"officer"
     }
 
     BRANCH = {
@@ -99,7 +101,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
         unique=True,
     )
     phone = models.CharField(max_length=10)
-    role = models.CharField(max_length=5, choices=ROLE)
+    role = models.CharField(max_length=10, choices=ROLE)
     branch = models.CharField(max_length=40, choices=BRANCH)
     totalHour = models.IntegerField(null=True)
 

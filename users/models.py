@@ -100,7 +100,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
         max_length=255,
         unique=True,
     )
-    phone = models.CharField(max_length=10, null=True, blank=True)
+    phone = models.CharField(max_length=10, null=True)
     role = models.CharField(max_length=10, choices=ROLE)
     branch = models.CharField(max_length=40, choices=BRANCH, null=True, blank=True)
     totalHour = models.IntegerField(null=True)
@@ -110,7 +110,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['firstName', 'lastName', 'role' , 'branch']
+    REQUIRED_FIELDS = ['firstName', 'lastName', 'role']
 
     def __str__(self):
         return self.email

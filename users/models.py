@@ -35,7 +35,7 @@ class Activity(models.Model):
     category = models.CharField(max_length=1, choices=CATEGORY)
     updateDate = models.DateField()
     hour = models.IntegerField()
-    status = models.CharField(max_length=1, choices=STATUS)
+    status = models.CharField(max_length=1, choices=STATUS, blank=True)
     image = models.ImageField(upload_to="activites")
     activityUser = models.CharField(max_length=100)
 

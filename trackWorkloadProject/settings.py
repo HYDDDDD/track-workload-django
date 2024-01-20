@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+from datetime import timedelta
 import sys
 import dj_database_url
 from os import getenv, path
@@ -197,8 +198,16 @@ DJOSER = {
     }
 }
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=999),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=999),
+}
+
+
 AUTH_COOKIE = 'access'
-AUTH_COOKIE_MAX_AGE = 60 * 60 * 24
+# AUTH_COOKIE_MAX_AGE = 60 * 60 * 24
+AUTH_COOKIE_MAX_AGE = None
+AUTH_TOKEN_EXPIRY = None
 AUTH_COOKIE_SECURE = getenv('AUTH_COOKIE_SECURE', 'True') == 'True'
 AUTH_COOKIE_HTTP_ONLY = True
 AUTH_COOKIE_PATH = '/'

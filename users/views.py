@@ -11,8 +11,8 @@ from rest_framework_simplejwt.views import (
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
-from .models import Activity
-from .serializers import ActivitySerializer,CustomUserCreateSerializer
+from .models import Activity, UserAccount
+from .serializers import ActivitySerializer, CustomUserCreateSerializer
 
 
 class CustomProviderAuthView(ProviderAuthView):
@@ -119,22 +119,14 @@ class LogoutView(APIView):
         return response
 
 
-class UserAccountList(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+class UserAccountList(generics.ListCreateAPIView):
+    queryset = UserAccount.objects.all()
+    serializer_class = CustomUserCreateSerializer
 
-    def get(self, request, format=None):
-        # ทำในกรณีที่มีการใช้ JWTAuthentication
-        user = request.user
-        serializer = CustomUserCreateSerializer(user)
+    def get(self, request, *args, **kwargs):
+        users = self.get_queryset()
+        serializer = self.get_serializer(users, many=True)
         return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = CustomUserCreateSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ActivityList(generics.ListCreateAPIView):

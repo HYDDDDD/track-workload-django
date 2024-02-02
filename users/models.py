@@ -6,7 +6,7 @@ class Activity(models.Model):
     ROLE = {
         "Admin": "admin",
         "Personnel": "users",
-        "Officer":"officer"
+        "Officer": "officer"
     }
 
     BRANCH = {
@@ -78,7 +78,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     ROLE = {
         "Admin": "admin",
         "Personnel": "users",
-        "Officer":"officer"
+        "Officer": "officer"
     }
 
     BRANCH = {
@@ -102,7 +102,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     )
     phone = models.CharField(max_length=10, null=True, blank=True)
     role = models.CharField(max_length=10, choices=ROLE)
-    branch = models.CharField(max_length=40, choices=BRANCH, null=True, blank=True)
+    branch = models.CharField(
+        max_length=40, choices=BRANCH, null=True, blank=True)
     totalHour = models.IntegerField(null=True, blank=True)
 
     is_staff = models.BooleanField(default=False)
@@ -110,7 +111,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['firstName', 'lastName', 'role' ,'branch','phone']
+    REQUIRED_FIELDS = ['firstName', 'lastName',
+                       'role', 'branch', 'phone', 'totalHour']
 
     def __str__(self):
         return self.email

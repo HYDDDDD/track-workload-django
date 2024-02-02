@@ -14,6 +14,7 @@ import dj_database_url
 from os import getenv, path
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
+from datetime import timedelta
 import dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -164,6 +165,10 @@ else:
         'staticfiles': {'BACKEND': 'storages.backends.s3boto3.S3StaticStorage'}
     }
 
+JWT_AUTH = {
+    'JWT_VERIFY_EXPIRATION': False,
+}
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -197,8 +202,14 @@ DJOSER = {
     }
 }
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=999),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=999),
+}
+
 AUTH_COOKIE = 'access'
-AUTH_COOKIE_MAX_AGE = 60 * 60 * 24
+# AUTH_COOKIE_MAX_AGE = 60 * 60 * 24
+AUTH_COOKIE_MAX_AGE = None
 AUTH_COOKIE_SECURE = getenv('AUTH_COOKIE_SECURE', 'True') == 'True'
 AUTH_COOKIE_HTTP_ONLY = True
 AUTH_COOKIE_PATH = '/'

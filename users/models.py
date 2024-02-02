@@ -39,7 +39,6 @@ class Activity(models.Model):
     image = models.ImageField(upload_to="activites")
     activityUser = models.CharField(max_length=100)
 
-    # auto_now_add : Automatically set the field to now when the object is first created
     def __str__(self):
         return self.category
 

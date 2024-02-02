@@ -6,10 +6,7 @@ from djoser.social.views import ProviderAuthView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
-    TokenVerifyView
 )
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from .models import Activity, UserAccount
 from .serializers import ActivitySerializer, CustomUserCreateSerializer
@@ -100,18 +97,8 @@ class CustomTokenRefreshView(TokenRefreshView):
         return response
 
 
-class CustomTokenVerifyView(TokenVerifyView):
-    def post(self, request, *args, **kwargs):
-        access_token = request.COOKIES.get('access')
-
-        if access_token:
-            request.data['token'] = access_token
-
-        return super().post(request, *args, **kwargs)
-
-
 class LogoutView(APIView):
-    def post(self, request, *args, **kwargs):
+    def post(self):
         response = Response(status=status.HTTP_204_NO_CONTENT)
         response.delete_cookie('access')
         response.delete_cookie('refresh')
@@ -123,7 +110,7 @@ class UserAccountList(generics.ListCreateAPIView):
     queryset = UserAccount.objects.all()
     serializer_class = CustomUserCreateSerializer
 
-    def get(self, request, *args, **kwargs):
+    def get(self):
         users = self.get_queryset()
         serializer = self.get_serializer(users, many=True)
         return Response(serializer.data)
@@ -133,12 +120,12 @@ class ActivityList(generics.ListCreateAPIView):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
-    def get(self, request, *args, **kwargs):
+    def get(self):
         activities = self.get_queryset()
         serializer = self.get_serializer(activities, many=True)
         return Response(serializer.data)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

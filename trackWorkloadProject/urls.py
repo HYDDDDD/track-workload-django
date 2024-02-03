@@ -8,5 +8,6 @@ urlpatterns = [
     path('api/', include('djoser.urls')),
     path('api/', include('users.urls')),
     path('api/activity/', views.ActivityList.as_view()),
+    path('api/activity/<int:pk>/', views.ActivityList.as_view()),
     path('api/user/', views.UserAccountList.as_view())
 ]

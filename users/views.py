@@ -110,17 +110,17 @@ class UserAccountList(generics.ListCreateAPIView):
     queryset = UserAccount.objects.all()
     serializer_class = CustomUserCreateSerializer
 
-    def get(self):
+    def get(self, request, *args, **kwargs):
         users = self.get_queryset()
         serializer = self.get_serializer(users, many=True)
         return Response(serializer.data)
 
 
-class ActivityList(generics.ListCreateAPIView):
+class ActivityList(generics.RetrieveUpdateDestroyAPIView):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
-    def get(self):
+    def get(self, request, *args, **kwargs):
         activities = self.get_queryset()
         serializer = self.get_serializer(activities, many=True)
         return Response(serializer.data)
@@ -130,4 +130,21 @@ class ActivityList(generics.ListCreateAPIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # def put(self, request, *args, **kwargs):
+    #     # ดึงรายการกิจกรรมที่ต้องการอัปเดต (update)
+    #     instance = self.get_object()
+    #     serializer = self.get_serializer(instance, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, pk, format=None):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -37,6 +37,7 @@ class Activity(models.Model):
     hour = models.IntegerField()
     status = models.CharField(max_length=1, choices=STATUS, blank=True)
     image = models.ImageField(upload_to="activites")
+    isSelected = models.BooleanField(blank=True)
     activityUser = models.CharField(max_length=100)
 
     def __str__(self):

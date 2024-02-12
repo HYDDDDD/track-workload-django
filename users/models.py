@@ -42,7 +42,7 @@ class Activity(models.Model):
     activityUser = models.CharField(max_length=100)
 
     def __str__(self):
-        if self.category == "H":
+        if self.category == "C":
             return "งานด้านทำนุบำรุงศิลปวัฒนธรรม" + " User id : " + self.activityUser + " Status : " + self.status
         else:
             return "งานด้านส่งเสริมสุขภาพ" + " User id : " + self.activityUser + " Status : " + self.status

@@ -32,8 +32,8 @@ SECRET_KEY = getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 
 DEBUG = getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = [getenv('DJANGO_ALLOWED_HOSTS',
-                        '127.0.0.1,localhost').split(','), '.vercel.app']
+ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS',
+                       '127.0.0.1,localhost').split(',') + ['.vercel.app']
 
 
 # ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS',
@@ -90,8 +90,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = [
-    'trackWorkloadProject.wsgi.application', 'vercel_app.wsgi.app']
+WSGI_APPLICATION = 'trackWorkloadProject.wsgi.application'
 
 
 # Database

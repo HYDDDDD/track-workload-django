@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
 
@@ -36,12 +37,15 @@ class Activity(models.Model):
     updateDate = models.DateField()
     hour = models.IntegerField()
     status = models.CharField(max_length=1, choices=STATUS, blank=True)
-    image = models.ImageField(upload_to="activites")
+    image = models.ImageField(upload_to="activites", blank=True)
     isSelected = models.BooleanField(blank=True)
     activityUser = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.category
+        if self.category == "C":
+            return "งานด้านทำนุบำรุงศิลปวัฒนธรรม" + " User id : " + self.activityUser + " Status : " + self.status
+        else:
+            return "งานด้านส่งเสริมสุขภาพ" + " User id : " + self.activityUser + " Status : " + self.status
 
 
 class UserAccountManager(BaseUserManager):
@@ -104,7 +108,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     role = models.CharField(max_length=10, choices=ROLE)
     branch = models.CharField(
         max_length=40, choices=BRANCH, null=True, blank=True)
-    totalHour = models.IntegerField(null=True, blank=True)
+    # totalHour = models.IntegerField(null=True, blank=True)
 
     is_staff = models.BooleanField(default=False)
 
@@ -112,7 +116,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['firstName', 'lastName',
-                       'role', 'branch', 'phone', 'totalHour']
+                       'role', 'branch', 'phone']
 
     def __str__(self):
         return self.email

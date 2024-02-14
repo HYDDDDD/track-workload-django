@@ -107,7 +107,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=10, null=True, blank=True)
     role = models.CharField(max_length=10, choices=ROLE)
     branch = models.CharField(
-        max_length=40, choices=BRANCH, null=True, blank=True)
+        max_length=40, choices=BRANCH, null=True)
     # totalHour = models.IntegerField(null=True, blank=True)
 
     is_staff = models.BooleanField(default=False)

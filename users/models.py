@@ -34,7 +34,7 @@ class Activity(models.Model):
     }
 
     category = models.CharField(max_length=1, choices=CATEGORY)
-    updateDate = models.DateField()
+    updateDate = models.DateTimeField()
     hour = models.IntegerField()
     status = models.CharField(max_length=1, choices=STATUS, blank=True)
     image = models.ImageField(upload_to="activites", blank=True)
@@ -94,7 +94,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
         "CPE": "สาขาวิชาวิศวกรรมคอมพิวเตอร์",
         "SE": "สาขาวิชาวิศวกรรมซอฟต์แวร์",
         "CG": "สาขาวิชาคอมพิวเตอร์กราฟิกและมัลติมีเดีย",
-        "OFFICE": "สำนักงานคณะ"
+        "OFFICE": "สำนักงานคณะ",
+        "-": "-"
     }
 
     firstName = models.CharField(max_length=255)

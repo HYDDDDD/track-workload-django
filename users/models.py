@@ -54,7 +54,8 @@ class UserAccountManager(BaseUserManager):
             raise ValueError("Users must have an email address")
 
         email = self.normalize_email(email)
-        email = email.lower()
+        if isinstance(email, str):
+            email = email.lower()
 
         user = self.model(
             email=email,

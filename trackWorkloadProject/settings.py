@@ -38,12 +38,10 @@ DEBUG = getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://b717-61-7-146-67.ngrok-free.app',
-                        'https://track-workload-django.vercel.app/']
+CSRF_TRUSTED_ORIGINS = ['https://b717-61-7-146-67.ngrok-free.app']
 
 CORS_ALLOWED_ORIGINS = [
     'https://7a5d-61-7-146-67.ngrok-free.app',
-    'https://track-workload.netlify.app/'
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -205,7 +203,7 @@ AUTH_COOKIE_SAMESITE = 'None'
 
 CORS_ALLOWED_ORIGINS = getenv(
     'CORS_ALLOWED_ORIGINS',
-    'http://localhost:3000,http://127.0.0.1:3000,https://7a5d-61-7-146-67.ngrok-free.app,https://track-workload.netlify.app/'
+    'http://localhost:3000,http://127.0.0.1:3000,https://7a5d-61-7-146-67.ngrok-free.app'
 ).split(',')
 
 CORS_ALLOW_CREDENTIALS = True

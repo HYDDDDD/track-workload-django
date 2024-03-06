@@ -32,12 +32,24 @@ SECRET_KEY = getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 
 DEBUG = getenv('DEBUG', 'False') == 'True'
 
-# ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS',
+# ALLOWED_HOSTS =
+# getenv('DJANGO_ALLOWED_HOSTS',
 #                         '127.0.0.1,localhost').split(',')
-
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['https://b717-61-7-146-67.ngrok-free.app',
+                        'https://track-workload-django.vercel.app/']
+
+CORS_ALLOWED_ORIGINS = [
+    'https://7a5d-61-7-146-67.ngrok-free.app',
+    'https://track-workload.netlify.app/'
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = False
 
 CORS_ALLOW_HEADERS = [
     'access-control-allow-origin',
@@ -62,6 +74,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -69,7 +82,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'trackWorkloadProject.urls'
@@ -193,7 +205,7 @@ AUTH_COOKIE_SAMESITE = 'None'
 
 CORS_ALLOWED_ORIGINS = getenv(
     'CORS_ALLOWED_ORIGINS',
-    'http://localhost:3000,http://127.0.0.1:3000'
+    'http://localhost:3000,http://127.0.0.1:3000,https://7a5d-61-7-146-67.ngrok-free.app,https://track-workload.netlify.app/'
 ).split(',')
 
 CORS_ALLOW_CREDENTIALS = True

@@ -34,7 +34,7 @@ class Activity(models.Model):
     }
 
     category = models.CharField(max_length=1, choices=CATEGORY)
-    updateDate = models.DateField()
+    updateDate = models.DateTimeField()
     hour = models.IntegerField()
     status = models.CharField(max_length=1, choices=STATUS, blank=True)
     image = models.ImageField(upload_to="activites", blank=True)
@@ -54,7 +54,8 @@ class UserAccountManager(BaseUserManager):
             raise ValueError("Users must have an email address")
 
         email = self.normalize_email(email)
-        email = email.lower()
+        if isinstance(email, str):
+            email = email.lower()
 
         user = self.model(
             email=email,
@@ -94,7 +95,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
         "CPE": "สาขาวิชาวิศวกรรมคอมพิวเตอร์",
         "SE": "สาขาวิชาวิศวกรรมซอฟต์แวร์",
         "CG": "สาขาวิชาคอมพิวเตอร์กราฟิกและมัลติมีเดีย",
-        "OFFICE": "สำนักงานคณะ"
+        "OFFICE": "สำนักงานคณะ",
+        "-": "-"
     }
 
     firstName = models.CharField(max_length=255)
